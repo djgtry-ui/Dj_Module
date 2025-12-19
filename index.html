@@ -7,40 +7,69 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
-        .gradient-bg { background: radial-gradient(circle at top right, #1e1b4b, #000000); }
+        .gradient-bg { background: radial-gradient(circle at top right, #4c42dd, #000000); }
+        /* Tinggi dinamis untuk frame agar pas dengan layar */
+        .content-frame { height: calc(100vh - 80px); }
     </style>
 </head>
-<body class="h-full w-full gradient-bg text-gray-200">
-    <div class="max-w-5xl mx-auto p-6 md:p-12">
-        <header class="mb-12 border-b border-gray-800 pb-6">
-            <h1 class="text-4xl font-bold text-white">Dj_Module</h1>
-            <p class="text-indigo-400 mt-2">Centralized Access Point for Aplications</p>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <div class="glass p-6 rounded-2xl border border-gray-800 hover:border-indigo-500 transition">
-                <span class="text-xs font-mono text-indigo-400">Umum</span>
-                <h3 class="text-xl font-bold text-white mt-1">Ramalan_Dj</h3>
-                <p class="text-sm text-gray-400 mt-2 mb-6">Cek neptu, weton, dan ramalan jodoh secara akurat.</p>
-                <a href="https://djgtry-ui.github.io/Ramalan_Dj/" target="_blank" class="inline-block w-full text-center bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-lg transition">Open App</a>
-            </div>
-
-            <div class="glass p-6 rounded-2xl border border-gray-800 hover:border-indigo-500 transition">
-                <span class="text-xs font-mono text-indigo-400">Administrasi</span>
-                <h3 class="text-xl font-bold text-white mt-1">kas_rt17</h3>
-                <p class="text-sm text-gray-400 mt-2 mb-6">Manajemen pencatatan keuangan warga RT.</p>
-                <a href="https://djgtry-ui.github.io/kas_rt17/" target="_blank" class="inline-block w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-lg transition">Launch System</a>
-            </div>
-
-            <div class="glass p-6 rounded-2xl border border-gray-800 hover:border-indigo-500 transition">
-                <span class="text-xs font-mono text-indigo-400">IoT Projek</span>
-                <h3 class="text-xl font-bold text-white mt-1">Djesp32-dashboard</h3>
-                <p class="text-sm text-gray-400 mt-2 mb-6">Monitoring sensor ESP32 secara real-time.</p>
-                <a href="https://djgtry-ui.github.io/Djesp32-dashboard/" target="_blank" class="inline-block w-full text-center bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg transition">View Data</a>
-            </div>
-
+<body class="h-full w-full gradient-bg text-gray-200 overflow-hidden flex flex-col">
+    
+    <header class="p-4 glass border-b border-gray-800 flex justify-between items-center z-10">
+        <div class="flex items-center gap-4">
+            <h1 class="text-xl font-bold text-white cursor-pointer" onclick="location.reload()">Dj_Module</h1>
         </div>
-    </div>
+        <nav class="flex gap-2">
+            
+        </nav>
+    </header>
+
+    <main id="mainContent" class="flex-grow w-full relative">
+        <div id="dashboardMenu" class="max-w-5xl mx-auto p-6 md:p-12">
+            <header class="mb-12 border-b border-gray-800 pb-6 text-center">
+                <h2 class="text-4xl font-bold text-green-400">Central Dashboard</h2>
+                <p class="text-indigo-400 mt-2">Pilih aplikasi untuk dijalankan di halaman ini</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div onclick="bukaApp('Ramalan_Dj')" class="glass p-6 rounded-2xl border border-gray-800 hover:border-indigo-500 transition cursor-pointer group">
+                    <span class="text-xs font-mono text-indigo-400" >Umum</span>
+                    <h3 class="text-xl font-bold text-white mt-1 group-hover:text-indigo-300">Ramalan_Dj</h3>
+                    <span class="text-6xl mb-4">🧘‍♂️</span>
+                    <p class="text-sm text-gray-400 mt-2">Cek neptu, weton, dan jodoh.</p>
+                </div>
+
+                <div onclick="bukaApp('kas_rt17')" class="glass p-6 rounded-2xl border border-gray-800 hover:border-emerald-500 transition cursor-pointer group">
+                    <span class="text-xs font-mono text-emerald-400">Administrasi</span>
+                    <h3 class="text-xl font-bold text-white mt-1 group-hover:text-emerald-300">kas_rt17</h3>
+                    <span class="text-6xl mb-4">📅</span>
+                    <p class="text-sm text-gray-400 mt-2">Sistem manajemen keuangan warga.</p>
+                </div>
+
+                <div onclick="bukaApp('Djesp32-dashboard')" class="glass p-6 rounded-2xl border border-gray-800 hover:border-slate-400 transition cursor-pointer group">
+                    <span class="text-xs font-mono text-slate-400">IoT Projek</span>
+                    <h3 class="text-xl font-bold text-white mt-1 group-hover:text-slate-300">Djesp32-dashboard</h3>
+                    <span class="text-6xl mb-4">✨</span>
+                    <p class="text-sm text-gray-400 mt-2">Monitoring sensor ESP32 real-time.</p>
+                </div>
+            </div>
+        </div>
+
+        <iframe id="appFrame" src="" class="hidden w-full h-full border-none bg-white"></iframe>
+    </main>
+
+    <script>
+        function bukaApp(repoName) {
+            const menu = document.getElementById('dashboardMenu');
+            const frame = document.getElementById('appFrame');
+            const url = `https://djgtry-ui.github.io/${repoName}/`;
+
+            // Sembunyikan menu, tampilkan iframe
+            menu.classList.add('hidden');
+            frame.classList.remove('hidden');
+            
+            // Muat URL repositori
+            frame.src = url;
+        }
+    </script>
 </body>
 </html>
