@@ -10,6 +10,12 @@
         .gradient-bg { background: radial-gradient(circle at top right, #4c42dd, #000000); }
         /* Scroll halus untuk mobile */
         #dashboardMenu { overflow-y: auto; max-height: calc(100vh - 80px); }
+        
+        /* Animasi hover tambahan */
+        .card-hover:hover {
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+            transform: translateY(-5px);
+        }
     </style>
 </head>
 <body class="h-full w-full gradient-bg text-gray-200 overflow-hidden flex flex-col">
@@ -32,24 +38,32 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <div onclick="bukaApp('Ramalan_Dj')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-indigo-500 transition cursor-pointer group flex flex-col items-center text-center">
+                <div onclick="bukaApp('Ramalan_Dj')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-indigo-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
                     <span class="text-xs font-mono text-indigo-400 mb-2">Umum</span>
                     <h3 class="text-xl font-bold text-white group-hover:text-indigo-300">Ramalan_Dj</h3>
-                    <div class="text-6xl my-4 transform group-hover:scale-110 transition">🧘‍♂️</div>
+                    <div class="text-6xl my-4 transition">🧘‍♂️</div>
                     <p class="text-sm text-gray-400">Cek neptu, weton, dan jodoh akurat.</p>
                 </div>
 
-                <div onclick="bukaApp('kas_rt17')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-emerald-500 transition cursor-pointer group flex flex-col items-center text-center">
+                
+                <div onclick="bukaApp('Dj_Rubik')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-orange-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
+                    <span class="text-xs font-mono text-orange-400 mb-2">Hobi & Skill</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-orange-300">Dj_Rubik</h3>
+                    <div class="text-6xl my-4 transition">🧩</div>
+                    <p class="text-sm text-gray-400">Panduan rumus cepat Rubik 3x3.</p>
+                </div>
+
+                <div onclick="bukaApp('kas_rt17')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-emerald-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
                     <span class="text-xs font-mono text-emerald-400 mb-2">Administrasi</span>
                     <h3 class="text-xl font-bold text-white group-hover:text-emerald-300">kas_rt17</h3>
-                    <div class="text-6xl my-4 transform group-hover:scale-110 transition">📅</div>
+                    <div class="text-6xl my-4 transition">📅</div>
                     <p class="text-sm text-gray-400">Sistem manajemen keuangan warga.</p>
                 </div>
 
-                <div onclick="bukaApp('Djesp32-dashboard')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-slate-400 transition cursor-pointer group flex flex-col items-center text-center">
+                <div onclick="bukaApp('Djesp32-dashboard')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-slate-400 transition cursor-pointer group flex flex-col items-center text-center card-hover">
                     <span class="text-xs font-mono text-slate-400 mb-2">IoT Projek</span>
                     <h3 class="text-xl font-bold text-white group-hover:text-slate-300">Djesp32-dashboard</h3>
-                    <div class="text-6xl my-4 transform group-hover:scale-110 transition">✨</div>
+                    <div class="text-6xl my-4 transition">✨</div>
                     <p class="text-sm text-gray-400">Monitoring sensor ESP32 real-time.</p>
                 </div>
 
@@ -64,11 +78,13 @@
             const menu = document.getElementById('dashboardMenu');
             const frame = document.getElementById('appFrame');
             const btn = document.getElementById('btnKembali');
+            
+            // Mengarahkan ke GitHub Pages Anda
             const url = `https://djgtry-ui.github.io/${repoName}/`;
 
             menu.classList.add('hidden');
             frame.classList.remove('hidden');
-            btn.classList.remove('hidden'); // Munculkan tombol tutup
+            btn.classList.remove('hidden');
             frame.src = url;
         }
 
@@ -79,8 +95,8 @@
 
             menu.classList.remove('hidden');
             frame.classList.add('hidden');
-            btn.classList.add('hidden'); // Sembunyikan tombol tutup
-            frame.src = ""; // Stop proses di background
+            btn.classList.add('hidden');
+            frame.src = ""; 
         }
     </script>
 </body>
