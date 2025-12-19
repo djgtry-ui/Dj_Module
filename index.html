@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dj_Module | Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
         .gradient-bg { background: radial-gradient(circle at top right, #4c42dd, #000000); }
         /* Scroll halus untuk mobile */
         #dashboardMenu { overflow-y: auto; max-height: calc(100vh - 80px); }
         
-        /* Animasi hover tambahan */
-        .card-hover:hover {
-            box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { 
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
     </style>
 </head>
@@ -41,29 +42,28 @@
                 <div onclick="bukaApp('Ramalan_Dj')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-indigo-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
                     <span class="text-xs font-mono text-indigo-400 mb-2">Umum</span>
                     <h3 class="text-xl font-bold text-white group-hover:text-indigo-300">Ramalan_Dj</h3>
-                    <div class="text-6xl my-4 transition">🧘‍♂️</div>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition">🧘‍♂️</div>
                     <p class="text-sm text-gray-400">Cek neptu, weton, dan jodoh akurat.</p>
                 </div>
 
-                
                 <div onclick="bukaApp('Dj_Rubik')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-orange-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
                     <span class="text-xs font-mono text-orange-400 mb-2">Hobi & Skill</span>
                     <h3 class="text-xl font-bold text-white group-hover:text-orange-300">Dj_Rubik</h3>
-                    <div class="text-6xl my-4 transition">🧩</div>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition text-orange-400">🧩</div>
                     <p class="text-sm text-gray-400">Panduan rumus cepat Rubik 3x3.</p>
                 </div>
 
                 <div onclick="bukaApp('kas_rt17')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-emerald-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
                     <span class="text-xs font-mono text-emerald-400 mb-2">Administrasi</span>
                     <h3 class="text-xl font-bold text-white group-hover:text-emerald-300">kas_rt17</h3>
-                    <div class="text-6xl my-4 transition">📅</div>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition text-emerald-400">📅</div>
                     <p class="text-sm text-gray-400">Sistem manajemen keuangan warga.</p>
                 </div>
 
                 <div onclick="bukaApp('Djesp32-dashboard')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-slate-400 transition cursor-pointer group flex flex-col items-center text-center card-hover">
                     <span class="text-xs font-mono text-slate-400 mb-2">IoT Projek</span>
                     <h3 class="text-xl font-bold text-white group-hover:text-slate-300">Djesp32-dashboard</h3>
-                    <div class="text-6xl my-4 transition">✨</div>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition text-slate-400">✨</div>
                     <p class="text-sm text-gray-400">Monitoring sensor ESP32 real-time.</p>
                 </div>
 
@@ -79,12 +79,12 @@
             const frame = document.getElementById('appFrame');
             const btn = document.getElementById('btnKembali');
             
-            // Mengarahkan ke GitHub Pages Anda
+            // Link diarahkan ke GitHub Pages Anda
             const url = `https://djgtry-ui.github.io/${repoName}/`;
 
             menu.classList.add('hidden');
             frame.classList.remove('hidden');
-            btn.classList.remove('hidden');
+            btn.classList.remove('hidden'); // Munculkan tombol tutup
             frame.src = url;
         }
 
@@ -95,8 +95,8 @@
 
             menu.classList.remove('hidden');
             frame.classList.add('hidden');
-            btn.classList.add('hidden');
-            frame.src = ""; 
+            btn.classList.add('hidden'); // Sembunyikan tombol tutup
+            frame.src = ""; // Stop proses di background agar tidak berat
         }
     </script>
 </body>
