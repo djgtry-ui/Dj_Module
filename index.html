@@ -8,49 +8,51 @@
     <style>
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
         .gradient-bg { background: radial-gradient(circle at top right, #4c42dd, #000000); }
-        /* Tinggi dinamis untuk frame agar pas dengan layar */
-        .content-frame { height: calc(100vh - 80px); }
+        /* Scroll halus untuk mobile */
+        #dashboardMenu { overflow-y: auto; max-height: calc(100vh - 80px); }
     </style>
 </head>
 <body class="h-full w-full gradient-bg text-gray-200 overflow-hidden flex flex-col">
     
-    <header class="p-4 glass border-b border-gray-800 flex justify-between items-center z-10">
+    <header class="p-4 glass border-b border-gray-800 flex justify-between items-center z-20">
         <div class="flex items-center gap-4">
             <h1 class="text-xl font-bold text-white cursor-pointer" onclick="location.reload()">Dj_Module</h1>
         </div>
-        <nav class="flex gap-2">
-            
-        </nav>
+        <button id="btnKembali" onclick="tutupApp()" class="hidden px-4 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded-lg text-sm font-bold transition">
+            ✕ Tutup
+        </button>
     </header>
 
     <main id="mainContent" class="flex-grow w-full relative">
         <div id="dashboardMenu" class="max-w-5xl mx-auto p-6 md:p-12">
-            <header class="mb-12 border-b border-gray-800 pb-6 text-center">
-                <h2 class="text-4xl font-bold text-green-400">Central Dashboard</h2>
-                <p class="text-indigo-400 mt-2">Pilih aplikasi untuk dijalankan di halaman ini</p>
+            <header class="mb-10 border-b border-gray-800 pb-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-400">Central Dashboard</h2>
+                <p class="text-indigo-400 mt-2 text-sm md:text-base">Pilih aplikasi untuk dijalankan di halaman ini</p>
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div onclick="bukaApp('Ramalan_Dj')" class="glass p-6 rounded-2xl border border-gray-800 hover:border-indigo-500 transition cursor-pointer group">
-                    <span class="text-xs font-mono text-indigo-400" >Umum</span>
-                    <h3 class="text-xl font-bold text-white mt-1 group-hover:text-indigo-300">Ramalan_Dj</h3>
-                    <span class="text-6xl mb-4">🧘‍♂️</span>
-                    <p class="text-sm text-gray-400 mt-2">Cek neptu, weton, dan jodoh.</p>
+                
+                <div onclick="bukaApp('Ramalan_Dj')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-indigo-500 transition cursor-pointer group flex flex-col items-center text-center">
+                    <span class="text-xs font-mono text-indigo-400 mb-2">Umum</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-indigo-300">Ramalan_Dj</h3>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition">🧘‍♂️</div>
+                    <p class="text-sm text-gray-400">Cek neptu, weton, dan jodoh akurat.</p>
                 </div>
 
-                <div onclick="bukaApp('kas_rt17')" class="glass p-6 rounded-2xl border border-gray-800 hover:border-emerald-500 transition cursor-pointer group">
-                    <span class="text-xs font-mono text-emerald-400">Administrasi</span>
-                    <h3 class="text-xl font-bold text-white mt-1 group-hover:text-emerald-300">kas_rt17</h3>
-                    <span class="text-6xl mb-4">📅</span>
-                    <p class="text-sm text-gray-400 mt-2">Sistem manajemen keuangan warga.</p>
+                <div onclick="bukaApp('kas_rt17')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-emerald-500 transition cursor-pointer group flex flex-col items-center text-center">
+                    <span class="text-xs font-mono text-emerald-400 mb-2">Administrasi</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-emerald-300">kas_rt17</h3>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition">📅</div>
+                    <p class="text-sm text-gray-400">Sistem manajemen keuangan warga.</p>
                 </div>
 
-                <div onclick="bukaApp('Djesp32-dashboard')" class="glass p-6 rounded-2xl border border-gray-800 hover:border-slate-400 transition cursor-pointer group">
-                    <span class="text-xs font-mono text-slate-400">IoT Projek</span>
-                    <h3 class="text-xl font-bold text-white mt-1 group-hover:text-slate-300">Djesp32-dashboard</h3>
-                    <span class="text-6xl mb-4">✨</span>
-                    <p class="text-sm text-gray-400 mt-2">Monitoring sensor ESP32 real-time.</p>
+                <div onclick="bukaApp('Djesp32-dashboard')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-slate-400 transition cursor-pointer group flex flex-col items-center text-center">
+                    <span class="text-xs font-mono text-slate-400 mb-2">IoT Projek</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-slate-300">Djesp32-dashboard</h3>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition">✨</div>
+                    <p class="text-sm text-gray-400">Monitoring sensor ESP32 real-time.</p>
                 </div>
+
             </div>
         </div>
 
@@ -61,14 +63,24 @@
         function bukaApp(repoName) {
             const menu = document.getElementById('dashboardMenu');
             const frame = document.getElementById('appFrame');
+            const btn = document.getElementById('btnKembali');
             const url = `https://djgtry-ui.github.io/${repoName}/`;
 
-            // Sembunyikan menu, tampilkan iframe
             menu.classList.add('hidden');
             frame.classList.remove('hidden');
-            
-            // Muat URL repositori
+            btn.classList.remove('hidden'); // Munculkan tombol tutup
             frame.src = url;
+        }
+
+        function tutupApp() {
+            const menu = document.getElementById('dashboardMenu');
+            const frame = document.getElementById('appFrame');
+            const btn = document.getElementById('btnKembali');
+
+            menu.classList.remove('hidden');
+            frame.classList.add('hidden');
+            btn.classList.add('hidden'); // Sembunyikan tombol tutup
+            frame.src = ""; // Stop proses di background
         }
     </script>
 </body>
