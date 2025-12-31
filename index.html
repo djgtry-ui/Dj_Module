@@ -3,84 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramalan Lengkap & Dashboard OBD</title>
+    <title>Dj_Module | Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .gradient-bg { background: radial-gradient(circle at top right, #1e1b4b, #000000); }
-        .card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 24px; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); }
-        .btn-obd { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #6366f1; transition: all 0.3s ease; }
-        .btn-obd:hover { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); transform: translateY(-2px); }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
+        .gradient-bg { background: radial-gradient(circle at top right, #4c42dd, #000000); }
+        #dashboardMenu { overflow-y: auto; max-height: calc(100vh - 80px); scrollbar-width: none; }
+        #dashboardMenu::-webkit-scrollbar { display: none; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { 
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(76, 66, 221, 0.3);
+        }
+        /* Style Khusus Tombol APK */
+        .btn-apk-launcher {
+            background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
     </style>
 </head>
-<body class="h-full w-full">
-    <div id="app" class="h-full w-full overflow-auto gradient-bg text-white">
-        <div class="w-full max-w-4xl mx-auto p-6">
-            
-            <header class="text-center mb-8 pt-6">
-                <h1 id="mainTitle" class="text-5xl font-bold mb-3 tracking-tight">Ramalan Lengkap</h1>
-                <p id="subtitle" class="text-xl opacity-80">Shio, Unsur, Zodiak & Dashboard Motor</p>
-                
-                <div class="mt-4 inline-flex items-center gap-2 bg-emerald-500/20 px-4 py-1.5 rounded-full border border-emerald-500/30">
-                    <span id="hijriDisplay" class="text-emerald-400 font-bold text-sm uppercase tracking-widest">
-                        Memuat Kalender...
-                    </span>
-                </div>
+<body class="h-full w-full gradient-bg text-gray-200 overflow-hidden flex flex-col">
+    
+    <header class="p-4 glass border-b border-gray-800 flex justify-between items-center z-20">
+        <div class="flex items-center gap-4">
+            <h1 class="text-xl font-bold text-white cursor-pointer" onclick="location.reload()">Dj_Module</h1>
+        </div>
+        <button id="btnKembali" onclick="tutupApp()" class="hidden px-4 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded-lg text-sm font-bold transition flex items-center gap-2">
+            <i class="fas fa-times"></i> Tutup App
+        </button>
+    </header>
+
+    <main id="mainContent" class="flex-grow w-full relative">
+        <div id="dashboardMenu" class="max-w-5xl mx-auto p-6 md:p-12">
+            <header class="mb-10 border-b border-gray-800 pb-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-400">Central Dashboard</h2>
+                <p class="text-indigo-400 mt-2 text-sm md:text-base italic">"Solusi Digital dalam Satu Genggaman"</p>
             </header>
 
-            <div id="menuPage" class="card">
-                <h2 class="text-3xl font-bold text-purple-400 text-center mb-8">Pilih Layanan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <button id="btnDiriSendiri" class="bg-gradient-to-br from-purple-500 to-pink-500 hover:scale-105 text-white rounded-2xl p-8 transition shadow-lg">
-                        <div class="text-6xl mb-4">🧘‍♂️</div>
-                        <h3 class="text-2xl font-bold mb-2">Ramalan Diri</h3>
-                    </button>
-
-                    <button id="btnPasangan" class="bg-gradient-to-br from-blue-500 to-purple-500 hover:scale-105 text-white rounded-2xl p-8 transition shadow-lg">
-                        <div class="text-6xl mb-4">💑</div>
-                        <h3 class="text-2xl font-bold mb-2">Ramalan Pasangan</h3>
-                    </button>
-
-                    <div class="md:col-span-2 mt-4">
-                        <a href="intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=appinventor.ai_djd_module.OBD_BT_10_DJ;end" 
-                           class="btn-obd flex items-center justify-between p-6 rounded-3xl w-full group">
-                            <div class="flex items-center gap-5">
-                                <div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-4xl shadow-lg">
-                                    <i class="fas fa-microchip"></i>
-                                </div>
-                                <div class="text-left">
-                                    <h3 class="text-2xl font-black tracking-tighter text-white">OBD2 BT SYSTEM</h3>
-                                    <p class="text-indigo-300 text-sm font-bold uppercase tracking-widest">Connect to BEAT ECU</p>
-                                </div>
-                            </div>
-                            <div class="text-3xl pr-4 opacity-50 group-hover:opacity-100 transition">
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </a>
-                    </div>
+                <div onclick="bukaApp('Ramalan_Dj')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-indigo-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
+                    <span class="text-xs font-mono text-indigo-400 mb-2 uppercase tracking-widest">Spiritual</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-indigo-300">Ramalan_Dj</h3>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition">🧘‍♂️</div>
+                    <p class="text-sm text-gray-400">Cek neptu, weton, dan hitungan jodoh Jawa.</p>
                 </div>
+
+                <div onclick="bukaApp('Dj_Rubik')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-orange-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
+                    <span class="text-xs font-mono text-orange-400 mb-2 uppercase tracking-widest">Hobi & Skill</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-orange-300">Dj_Rubik</h3>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition text-orange-400">🧩</div>
+                    <p class="text-sm text-gray-400">Panduan rumus cepat dan teknik Rubik 3x3.</p>
+                </div>
+
+                <div onclick="bukaApp('kas_rt17')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-emerald-500 transition cursor-pointer group flex flex-col items-center text-center card-hover">
+                    <span class="text-xs font-mono text-emerald-400 mb-2 uppercase tracking-widest">Administrasi</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-emerald-300">kas_rt17</h3>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition text-emerald-400">📅</div>
+                    <p class="text-sm text-gray-400">Manajemen pencatatan iuran dan kas warga.</p>
+                </div>
+
+                <div onclick="bukaApp('Djesp32-dashboard')" class="glass p-8 rounded-2xl border border-gray-800 hover:border-slate-400 transition cursor-pointer group flex flex-col items-center text-center card-hover">
+                    <span class="text-xs font-mono text-slate-400 mb-2 tracking-widest uppercase">IoT Projek</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-slate-300">ESP32 Monitor</h3>
+                    <div class="text-6xl my-4 transform group-hover:scale-110 transition text-blue-400">📡</div>
+                    <p class="text-sm text-gray-400">Monitoring sensor ESP32 real-time.</p>
+                </div>
+
+                <a href="intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=appinventor.ai_djd_module.OBD_BT_10_DJ;end" 
+                   class="btn-apk-launcher p-8 rounded-2xl transition cursor-pointer group flex flex-col items-center text-center card-hover no-underline">
+                    <span class="text-xs font-mono text-white mb-2 uppercase tracking-widest animate-pulse">Native App</span>
+                    <h3 class="text-xl font-bold text-white">OBD2 BT DJ</h3>
+                    <div class="text-6xl my-4 transform group-hover:rotate-12 transition">🏍️</div>
+                    <p class="text-sm text-white opacity-80 font-medium">Buka aplikasi APK instrumen mesin motor.</p>
+                </a>
+
             </div>
-
-            <div id="formDiriSendiri" class="card hidden">...</div>
-            <div id="formPasangan" class="card hidden">...</div>
-
         </div>
-    </div>
+
+        <iframe id="appFrame" src="" class="hidden w-full h-full border-none bg-black"></iframe>
+    </main>
 
     <script>
-        // Logika sederhana untuk kalender Hijriah agar tidak "Undefined"
-        function updateHijri() {
-            const islamicMonths = ["Muharram", "Safar", "Rabi'ul Awal", "Rabi'ul Akhir", "Jumadil Ula", "Jumadil Akhira", "Rajab", "Sya'ban", "Ramadhan", "Syawal", "Dzulqa'dah", "Dzulhijjah"];
+        function bukaApp(repoName) {
+            const menu = document.getElementById('dashboardMenu');
+            const frame = document.getElementById('appFrame');
+            const btn = document.getElementById('btnKembali');
             
-            // Contoh manual (Sesuaikan dengan SDK Anda jika ada fungsi otomatis)
-            const d = new Date();
-            // Ini simulasi tanggal, idealnya gunakan library moment-hijri atau fungsi dari data_sdk.js
-            document.getElementById('hijriDisplay').innerText = "07 Rajab 1447 H"; 
+            const url = `https://djgtry-ui.github.io/${repoName}/`;
+
+            menu.classList.add('hidden');
+            frame.classList.remove('hidden');
+            btn.classList.remove('hidden'); 
+            frame.src = url;
         }
-        updateHijri();
+
+        function tutupApp() {
+            const menu = document.getElementById('dashboardMenu');
+            const frame = document.getElementById('appFrame');
+            const btn = document.getElementById('btnKembali');
+
+            menu.classList.remove('hidden');
+            frame.classList.add('hidden');
+            btn.classList.add('hidden');
+            frame.src = ""; 
+        }
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
