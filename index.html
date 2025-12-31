@@ -1,4 +1,4 @@
-5<!doctype html>
+<!doctype html>
 <html lang="id" class="h-full">
 <head>
     <meta charset="UTF-8">
@@ -71,11 +71,13 @@
                     <p class="text-sm text-gray-400">Monitoring sensor ESP32 real-time.</p>
                 </div>
 
-                <a href="intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=appinventor.ai_moty22g.OBD_BT_10;component=appinventor.ai_moty22g.OBD_BT_10/.Screen1;end" class="btn-apk-launcher p-8 rounded-2xl transition cursor-pointer group flex flex-col items-center text-center card-hover no-underline">
+                <a href="intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=appinventor.ai_moty22g.OBD_BT_10;component=appinventor.ai_moty22g.OBD_BT_10/.Screen1;end" 
+                   target="_blank"
+                   class="btn-apk-launcher p-8 rounded-2xl transition cursor-pointer group flex flex-col items-center text-center card-hover no-underline">
                    <span class="text-xs font-mono text-white mb-2 uppercase tracking-widest animate-pulse">Native App</span>
                    <h3 class="text-xl font-bold text-white">OBD2 BT DJ</h3>
-                   <div class="text-6xl my-4">🏍️</div>
-                   <p class="text-sm text-white opacity-80 font-medium">Klik untuk membuka aplikasi OBD.</p>
+                   <div class="text-6xl my-4 transform group-hover:rotate-12 transition">🏍️</div>
+                   <p class="text-sm text-white opacity-80 font-medium">Buka aplikasi APK instrumen mesin motor.</p>
                 </a>
 
             </div>
@@ -85,6 +87,7 @@
     </main>
 
     <script>
+        // Fungsi untuk menangani navigasi antar repo
         function bukaApp(repoName) {
             const menu = document.getElementById('dashboardMenu');
             const frame = document.getElementById('appFrame');
@@ -108,6 +111,15 @@
             btn.classList.add('hidden');
             frame.src = ""; 
         }
+
+        // Script Tambahan: Mencegah ERR_UNKNOWN_URL_SCHEME jika dibuka dalam WebView
+        // Menampilkan peringatan jika user tidak menggunakan browser asli
+        window.addEventListener('load', function() {
+            const isWebView = /wv|mobi|android.*version\/[\d.]+/i.test(navigator.userAgent);
+            if (isWebView && window.location.protocol !== "file:") {
+                console.log("Mendeteksi WebView. Link Intent mungkin memerlukan Chrome.");
+            }
+        });
     </script>
 </body>
 </html>
